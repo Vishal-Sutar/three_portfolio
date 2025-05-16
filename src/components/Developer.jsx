@@ -3,7 +3,7 @@ import { useGLTF, useAnimations, useFBX } from '@react-three/drei'
 
 const Developer = ({ animationName = 'idle', ...props }) => {
   const group = useRef();
-  const { nodes, materials } = useGLTF('/models/human/model3.glb');
+  const { nodes, materials } = useGLTF('/models/human/vishal.glb');
   const { animations: idleAnimation } = useFBX('/models/human/idle.fbx');
   const { animations: saluteAnimation } = useFBX('/models/human/salute.fbx');
   const { animations: clappingAnimation } = useFBX('/models/human/clapping.fbx');

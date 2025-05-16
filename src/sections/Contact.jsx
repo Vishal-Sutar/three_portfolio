@@ -61,7 +61,7 @@ const Contact = () => {
         <img src="/assets/terminal.png" alt="terminal background" 
         className="absolute inset-0 min-h-screen"/>
         <div className="contact-container">
-         <h3 className="head-text">Contact Me</h3>
+         <h3 className="head-text pt-6" >Contact Me</h3>
          <p className="text-lg text-white-600">Whether you're looking to build a new website, Let's connect with me.</p>
 
          <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7">
@@ -94,7 +94,7 @@ const Contact = () => {
                        value={form.message}
                        onChange={handleChange}
                        required
-                       rows={5}
+                       rows={4}
                        className="field-input"
                        placeholder="Type your message..." />
             </label>
