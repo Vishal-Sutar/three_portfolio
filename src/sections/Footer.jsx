@@ -8,6 +8,8 @@ const Footer = () => {
             <p> Terms & Conditions</p>
             <p>|</p>
             <p>Privacy Policy</p>
+            <p>© 2024 Vishal Sutar - Made with ❤️.</p>
+
             </div>
 
             <div className="flex gap-3">
@@ -37,9 +39,9 @@ const Footer = () => {
                     <a href="https://www.linkedin.com/in/vishal-sutar-2b2354272" className="w-1/2 h-1/2">
                      <img src="/assets/linkedin.svg" alt="linkdin" /> 
                      </a>
-                    
-                     
                 </div>
+
+                
 
 
 

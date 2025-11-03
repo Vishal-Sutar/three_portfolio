@@ -65,7 +65,10 @@ const About = () => {
                     <div>
                         <p className="grid-headtext">Address</p>
                         <p className="grid-subtext">I live In India, Maharashtra , Kolhapur.</p>
-                        <Button name="Contact Me" isBeam containerClass="w-full mt-10"/>
+                        <a href="#contact">
+                           <Button name="Contact Me" isBeam containerClass="w-full mt-10"/>
+
+                        </a>
 
                     </div>
                 </div>
