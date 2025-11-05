@@ -40,12 +40,6 @@ const Footer = () => {
                      <img src="/assets/linkedin.svg" alt="linkdin" /> 
                      </a>
                 </div>
-
-                
-
-
-
-
             </div>
     </section>
  );
