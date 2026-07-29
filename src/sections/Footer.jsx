@@ -8,7 +8,7 @@ const Footer = () => {
             <p> Terms & Conditions</p>
             <p>|</p>
             <p>Privacy Policy</p>
-            <p>© 2024 Vishal Sutar - Made with ❤️.</p>
+            <p>© {new Date().getFullYear()} Vishal Sutar - Made with ❤️.</p>
 
             </div>
 

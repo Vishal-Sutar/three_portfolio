@@ -22,14 +22,14 @@
 //     ...victoryAnimation
 //   ];
 
-  
+
 //   // Use useAnimations (plural) which can handle both GLTF and FBX animations
 //   const { actions } = useAnimations(allAnimations, group);
 
 //   useEffect(() => {
 //     if (actions && actions[animationName]) {
 //       actions[animationName].reset().fadeIn(0.5).play();
-      
+
 //       return () => {
 //         if (actions[animationName]) {
 //           actions[animationName].fadeOut(0.5);
@@ -85,42 +85,44 @@ import { useGLTF, useAnimations, useFBX } from '@react-three/drei'
 
 const Developer = ({ animationName = 'idle', ...props }) => {
   const group = useRef();
-  const { nodes, materials } = useGLTF('/models/human/vishal.glb');
-  
+  const { nodes, materials } = useGLTF('/models/human/developer_vishal.glb');
+
   // Load FBX animations - these are causing the CanvasLoader update
   const { animations: idleAnimation } = useFBX('/models/human/idle.fbx');
   const { animations: saluteAnimation } = useFBX('/models/human/salute.fbx');
   const { animations: clappingAnimation } = useFBX('/models/human/clapping.fbx');
   const { animations: victoryAnimation } = useFBX('/models/human/victory.fbx');
+    const { animations: danceAnimation } = useFBX('/models/human/HipHopDancing.fbx');
+
 
   // Process and filter animations with useMemo - prevents re-processing on every render
   const allAnimations = useMemo(() => {
     // Check if animations are loaded
-    if (!idleAnimation[0] || !saluteAnimation[0] || !clappingAnimation[0] || !victoryAnimation[0]) {
+    if (!idleAnimation[0] || !saluteAnimation[0] || !clappingAnimation[0] || !victoryAnimation[0] || !danceAnimation[0]) {
       return [];
     }
 
     // Helper function to filter out missing bone tracks
     const filterAnimation = (animation, name) => {
       if (!animation) return null;
-      
+
       // Clone the animation to avoid mutating the original
       const clonedAnimation = animation.clone();
       clonedAnimation.name = name;
-      
+
       // Filter out problematic tracks
       clonedAnimation.tracks = clonedAnimation.tracks.filter(track => {
         const trackName = track.name;
-        return !trackName.includes('_End') && 
-               !trackName.includes('Eye') && 
-               !trackName.includes('Thumb4') &&
-               !trackName.includes('Index4') &&
-               !trackName.includes('Middle4') &&
-               !trackName.includes('Ring4') &&
-               !trackName.includes('Pinky4') &&
-               !trackName.includes('Toe_End');
+        return !trackName.includes('_End') &&
+          !trackName.includes('Eye') &&
+          !trackName.includes('Thumb4') &&
+          !trackName.includes('Index4') &&
+          !trackName.includes('Middle4') &&
+          !trackName.includes('Ring4') &&
+          !trackName.includes('Pinky4') &&
+          !trackName.includes('Toe_End');
       });
-      
+
       return clonedAnimation;
     };
 
@@ -129,25 +131,29 @@ const Developer = ({ animationName = 'idle', ...props }) => {
       filterAnimation(idleAnimation[0], 'idle'),
       filterAnimation(saluteAnimation[0], 'salute'),
       filterAnimation(clappingAnimation[0], 'clapping'),
-      filterAnimation(victoryAnimation[0], 'victory')
+      filterAnimation(victoryAnimation[0], 'victory'),
+      filterAnimation(danceAnimation[0], 'hiphopdancing'),
+      filterAnimation(danceAnimation[0], 'HipHopDancing')
     ].filter(Boolean); // Remove any null values
 
     return processedAnimations;
-  }, [idleAnimation, saluteAnimation, clappingAnimation, victoryAnimation]);
+  }, [idleAnimation, saluteAnimation, clappingAnimation, victoryAnimation, danceAnimation]);
 
   // Use animations
   const { actions } = useAnimations(allAnimations, group);
 
   // Play animation in useEffect - after render completes
   useEffect(() => {
-    if (actions && actions[animationName]) {
-      actions[animationName].reset().fadeIn(0.5).play();
-      
+    const key = actions[animationName] ? animationName : actions[animationName?.toLowerCase()] ? animationName.toLowerCase() : null;
+
+    if (actions && key && actions[key]) {
+      actions[key].reset().fadeIn(0.5).play();
+
       return () => {
-        if (actions[animationName]) {
-          actions[animationName].fadeOut(0.5);
+        if (actions[key]) {
+          actions[key].fadeOut(0.5);
         }
-      }
+      };
     }
   }, [animationName, actions]);
 
@@ -186,6 +192,18 @@ const Developer = ({ animationName = 'idle', ...props }) => {
             skeleton={nodes.avaturn_shoes_0.skeleton}
           />
           <skinnedMesh
+            name="avaturn_glasses_0"
+            geometry={nodes.avaturn_glasses_0?.geometry}
+            material={materials.avaturn_glasses_0_material || nodes.avaturn_glasses_0?.material}
+            skeleton={nodes.avaturn_glasses_0?.skeleton}
+          />
+          <skinnedMesh
+            name="avaturn_glasses_1"
+            geometry={nodes.avaturn_glasses_1?.geometry}
+            material={materials.avaturn_glasses_1_material || nodes.avaturn_glasses_1?.material}
+            skeleton={nodes.avaturn_glasses_1?.skeleton}
+          />
+          <skinnedMesh
             name="avaturn_look_0"
             geometry={nodes.avaturn_look_0.geometry}
             material={materials.avaturn_look_0_material}
@@ -198,10 +216,12 @@ const Developer = ({ animationName = 'idle', ...props }) => {
 }
 
 
-useGLTF.preload('/models/human/vishal.glb');
+useGLTF.preload('/models/human/developer_vishal.glb');
 useFBX.preload('/models/human/idle.fbx');
 useFBX.preload('/models/human/salute.fbx');
 useFBX.preload('/models/human/clapping.fbx');
 useFBX.preload('/models/human/victory.fbx');
+useFBX.preload('/models/human/HipHopDancing.fbx');
+
 
 export default Developer;

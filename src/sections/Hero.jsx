@@ -27,7 +27,7 @@ const Hero = () => {
                 <p className="sm:text-3xl text-2xl font-medium text-white text-center
                 font-generalsans">Hi, I am Vishal 
                     <span className="waving-hand">👋</span> </p>
-                    <p className="hero_tag text-gray_gradient text-center">Web Developer</p>
+                    <p className="hero_tag text-gray_gradient text-center">React Native Developer</p>
             </div>
 
             <div className="w-full h-full absolute inset-0">
